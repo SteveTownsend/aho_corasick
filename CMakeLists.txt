@@ -21,7 +21,7 @@
 #
 # Project Properties
 #
-CMAKE_MINIMUM_REQUIRED (VERSION 2.6.2)
+CMAKE_MINIMUM_REQUIRED (VERSION 3.23.0)
 PROJECT (aho_corasick)
 
 #
@@ -42,10 +42,14 @@ SET (CMAKE_MODULE_PATH "${MAINFOLDER}/cmake")
 INCLUDE_DIRECTORIES ("${MAINFOLDER}/src")
 
 #
-# Enable C++11
+# Enable C++23
 #
-INCLUDE (EnableStdCXX11)
-ENABLE_STDCXX11 ()
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Unicode support
+find_package(ICU REQUIRED COMPONENTS uc)
+include_directories(${ICU_INCLUDE_DIR})
 
 #
 # Recurse source sub-directories

@@ -7288,6 +7288,11 @@ PVOID FatalConditionHandler::exceptionHandlerHandle = nullptr;
 } // namespace Catch
 
 #elif defined( CATCH_CONFIG_POSIX_SIGNALS )
+#if defined(linux) || defined(__linux) || defined(__linux__)
+// no longer const in glibc
+#undef SIGSTKSZ
+#define SIGSTKSZ 8192
+#endif
 
 namespace Catch {
 
@@ -7353,6 +7358,7 @@ namespace Catch {
     struct sigaction FatalConditionHandler::oldSigActions[sizeof(signalDefs)/sizeof(SignalDefs)] = {};
     stack_t FatalConditionHandler::oldSigStack = {};
     char FatalConditionHandler::altStackMem[SIGSTKSZ] = {};
+
 
 } // namespace Catch
 
@@ -11599,7 +11605,7 @@ public:
         case Unit::Nanoseconds:
             return "ns";
         case Unit::Microseconds:
-            return "µs";
+            return "Âµs";
         case Unit::Milliseconds:
             return "ms";
         case Unit::Seconds:

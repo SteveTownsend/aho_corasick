@@ -49,11 +49,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Unicode support
 find_package(ICU REQUIRED COMPONENTS uc)
-cmake_print_variables(ICU_FOUND ICU_LIBRARIES)
 include_directories(${ICU_INCLUDE_DIR})
 if (WIN32)
-  SET(ICU_UC_LIBRARY "ENV{ICU_ROOT}/lib64/icuuc.lib")
+  SET(ICU_UC_LIBRARY "$ENV{ICU_ROOT}/lib64/icuuc.lib")
+  SET(ICU_LIBRARIES "${ICU_UC_LIBRARY}")
 endif()
+cmake_print_variables(ICU_FOUND ICU_LIBRARIES)
 
 #
 # Recurse source sub-directories

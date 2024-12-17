@@ -48,21 +48,13 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Unicode support
+find_package(ICU REQUIRED COMPONENTS uc)
+cmake_print_variables(ICU_FOUND ICU_LIBRARIES)
+include_directories(${ICU_INCLUDE_DIR})
 if (WIN32)
-  FetchContent_Declare(icu 
-    URL https://github.com/unicode-org/icu/releases/download/release-76-1/icu4c-76_1-Win64-MSVC2022.zip
-  )
-  FetchContent_MakeAvailable(icu)
-  cmake_print_variables(icu_SOURCE_DIR)
-  set(ICU_LIBRARIES ${icu_SOURCE_DIR}/icu4c/lib64/icuuc.lib)
-  include_directories(${icu_SOURCE_DIR}/icu4c/include)
-  set(env${ICU_ROOT} ${CMAKE_CURRENT_SOURCE_DIR}/${icu_SOURCE_DIR})
-  cmake_print_variables(ICU_FOUND ICU_LIBRARIES)
-elseif (UNIX)
-  find_package(ICU REQUIRED COMPONENTS uc)
-  cmake_print_variables(ICU_FOUND ICU_LIBRARIES)
-  include_directories(${ICU_INCLUDE_DIR})
+  SET(ICU_UC_LIBRARY "ENV{ICU_ROOT}/lib64/icuuc.lib")
 endif()
+
 #
 # Recurse source sub-directories
 #

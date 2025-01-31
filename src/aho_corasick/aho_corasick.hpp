@@ -462,6 +462,8 @@ public:
   }
 
   emit_collection parse_text(string_type text) {
+    if (text.empty())
+      return {};
     check_construct_failure_states();
     size_t pos = 0;
     state_ptr_type cur_state = d_root.get();
@@ -584,7 +586,7 @@ template <>
 inline void basic_trie<wchar_t>::remove_partial_matches(
     std::basic_string<wchar_t> &search_text,
     basic_trie<wchar_t>::emit_collection &collected_emits) const {
-  if (collected_emits.empty())
+  if (collected_emits.empty() || search_text.empty())
     return;
   size_t size = search_text.size();
   // convert WCS to UChar

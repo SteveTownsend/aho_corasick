@@ -23,6 +23,7 @@
 #
 CMAKE_MINIMUM_REQUIRED (VERSION 3.23.0)
 PROJECT (aho_corasick)
+SET(AHO_CORASICK_TEST OFF)
 
 #
 # Debugging Options
@@ -54,11 +55,14 @@ if (WIN32)
   SET(ICU_UC_LIBRARY "$ENV{ICU_ROOT}/lib64/icuuc.lib")
   SET(ICU_LIBRARIES "${ICU_UC_LIBRARY}")
 endif()
-cmake_print_variables(ICU_FOUND ICU_LIBRARIES)
 
 #
 # Recurse source sub-directories
 #
-ENABLE_TESTING (true)
+if (AHO_CORASICK_TEST)
+  ENABLE_TESTING (true)
+endif()
 ADD_SUBDIRECTORY (src)
-ADD_SUBDIRECTORY (test)
+if (AHO_CORASICK_TEST)
+  ADD_SUBDIRECTORY (test)
+endif()

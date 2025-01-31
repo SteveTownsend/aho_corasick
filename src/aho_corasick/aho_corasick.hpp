@@ -410,6 +410,14 @@ public:
       : d_root(new state_type()), d_config(c),
         d_constructed_failure_states(false) {}
 
+  basic_trie& operator=(basic_trie && rhs) {
+    d_root = std::move(rhs.d_root);
+    d_config = rhs.d_config;
+    d_constructed_failure_states = rhs.d_constructed_failure_states;
+    d_num_keywords = rhs.d_num_keywords;
+    return *this;
+  }
+
   basic_trie &case_insensitive() {
     d_config.set_case_insensitive(true);
     return (*this);

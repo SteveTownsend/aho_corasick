@@ -600,7 +600,7 @@ inline void basic_trie<wchar_t>::remove_partial_matches(
   // convert WCS to UChar
   std::vector<UChar> uc_str(size);
   int32_t uc_length;
-  UErrorCode error_code;
+  UErrorCode error_code(UErrorCode::U_ZERO_ERROR);
   u_strFromWCS(&uc_str[0], static_cast<int32_t>(size), &uc_length,
                search_text.c_str(), static_cast<int32_t>(size), &error_code);
   emit_collection remove_emits;
